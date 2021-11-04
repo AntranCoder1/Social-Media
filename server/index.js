@@ -5,6 +5,9 @@ const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+const authRouter = require("./routers/auth.router");
+const userRouter = require("./routers/user.router");
+
 const connectDB = async () => {
     try {
         await mongoose.connect(
@@ -30,9 +33,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-app.get("/", (req, res) => {
-    res.send("hello");
-})
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {
