@@ -62,4 +62,52 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// @router api/users/:id/follow
+// @desc PUT follow
+// @access Private
+router.put('/:id/follow', async (req, res) => {
+    if (req.body.userId !== req.params.id) {
+        try {
+            const user = await User.findById(req.params.id);
+            const currentUser = await User.findById(req.body.userId);
+            
+            if (!user.followers.includes(req.body.userId)) {
+                await user.updateOne({ $push: { followers: req.body.userId } });
+                await currentUser.updateOne({ $push: { followings: req.params.id } });
+                res.status(200).json({ success: true, message: 'User has been followed' });
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    } else {
+        res.status(403).json({ success: false, message: 'You cant follow yourself' });
+    }
+})
+
+// @router api/users/:id/unfollow
+// @desc PUT follow
+// @access Private
+router.put('/:id/unfollow', async (req, res) => {
+    if (req.body.userId !== req.params.id) {
+        try {
+            const user = await User.findById(req.params.id);
+            const currentUser = await User.findById(req.body.userId);
+
+            if (user.followers.includes(req.body.userId)) {
+                await user.updateOne({ $pull: { followers: req.body.userId } });
+                await currentUser.updateOne({ $pull: { followings: req.params.id } });
+                res.status(200).json({ success: true, message: 'user has been unfollowed' });
+            } else {
+                res.status(500).json({ success: false, message: "you don't follow this user" });
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    } else {
+        res.status(500).json({ success: false, message: 'You can unfollow yourself' });
+    }
+})
+
 module.exports = router;
