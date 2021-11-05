@@ -73,4 +73,18 @@ router.put('/:id/like', async (req, res) => {
     }
 })
 
+// @router api/posts/:id
+// @desc GET post
+// @access Private
+router.get('/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        res.status(200).json({ success: true, message: 'Post has been found', post });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+})
+
+
 module.exports = router;
