@@ -48,4 +48,18 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+// @router api/users/:id
+// @desc GET user
+// @access Private
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const { password, updatedAt, ...other } = user._doc
+        res.status(200).json({ success: true, message: 'Account has been found',other });
+    } catch (error) {
+        console.log(error);
+        res.status(200).json({ success: false, message: 'Internal server error' });
+    }
+})
+
 module.exports = router;
