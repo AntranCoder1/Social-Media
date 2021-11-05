@@ -34,16 +34,6 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-// @router api/posts/:id
-// @desc DELETE post
-// @access Private
-router.delete('/:id', async (req, res) => {
-    try {
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-})
+
 
 module.exports = router;
