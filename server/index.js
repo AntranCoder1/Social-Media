@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const authRouter = require("./routers/auth.router");
 const userRouter = require("./routers/user.router");
+const postRouter = require("./routers/post.router");
 
 const connectDB = async () => {
     try {
@@ -35,6 +36,7 @@ app.use(morgan("common"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use('/api/posts', postRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {
