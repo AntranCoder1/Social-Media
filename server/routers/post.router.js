@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/posts.models');
+const User = require('../models/users.models');
 
 // @router api/post
 // @desc POST post
@@ -86,5 +87,23 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// @router api/posts/timeline/all
+// @desc GET post
+// @access private
+router.get('/timeline/all', async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.body.userId);
+        const postUser = await Post.find({ userId: currentUser._id });
+        const friendPost = await Promise.all(
+            currentUser.followings.map(friendId => {
+                return Post.find({ userId: friendId })
+            })  
+        );
+        res.status(200).json(postUser.concat(...friendPost));
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+})
 
 module.exports = router;
