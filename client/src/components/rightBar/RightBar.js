@@ -3,8 +3,8 @@ import './RightBar.css';
 
 const RightBar = () => {
     return (
-        <div className="">
-            
+        <div className="rightBar">
+            RightBar
         </div>
     )
 }

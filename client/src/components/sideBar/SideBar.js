@@ -16,47 +16,47 @@ const SideBar = () => {
     return (
         <div className="sideBar">
             <div className="sideBarWrapper">
-                <ul className="sideBarList">
-                    <li className="sideBarListItem">
-                        <RssFeed className="sideBarIcon" />
-                        <span className="sideBarListItemText">Feed</span>
+                <ul className="sidebarList">
+                    <li className="sidebarListItem">
+                        <RssFeed className="sidebarIcon" />
+                        <span className="sidebarListItemText">Feed</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <Chat className="sideBarIcon" />
-                        <span className="sideBarListItemText">Chats</span>
+                    <li className="sidebarListItem">
+                        <Chat className="sidebarIcon" />
+                        <span className="sidebarListItemText">Chats</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <PlayCircleFilledOutlined className="sideBarIcon" />
-                        <span className="sideBarListItemText">Videos</span>
+                    <li className="sidebarListItem">
+                        <PlayCircleFilledOutlined className="sidebarIcon" />
+                        <span className="sidebarListItemText">Videos</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <Group className="sideBarIcon" />
-                        <span className="sideBarListItemText">Groups</span>
+                    <li className="sidebarListItem">
+                        <Group className="sidebarIcon" />
+                        <span className="sidebarListItemText">Groups</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <Bookmark className="sideBarIcon" />
-                        <span className="sideBarListItemText">Bookmarks</span>
+                    <li className="sidebarListItem">
+                        <Bookmark className="sidebarIcon" />
+                        <span className="sidebarListItemText">Bookmarks</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <HelpOutline className="sideBarIcon" />
-                        <span className="sideBarListItemText">Question</span>
+                    <li className="sidebarListItem">
+                        <HelpOutline className="sidebarIcon" />
+                        <span className="sidebarListItemText">Questions</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <WorkOutline className="sideBarIcon" />
-                        <span className="sideBarListItemText">Jobs</span>
+                    <li className="sidebarListItem">
+                        <WorkOutline className="sidebarIcon" />
+                        <span className="sidebarListItemText">Jobs</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <Event className="sideBarIcon" />
-                        <span className="sideBarListItemText">Events</span>
+                    <li className="sidebarListItem">
+                        <Event className="sidebarIcon" />
+                        <span className="sidebarListItemText">Events</span>
                     </li>
-                    <li className="sideBarListItem">
-                        <School className="sideBarIcon" />
-                        <span className="sideBarListItemText">Courses</span>
+                    <li className="sidebarListItem">
+                        <School className="sidebarIcon" />
+                        <span className="sidebarListItemText">Courses</span>
                     </li>
                 </ul>
                 <button className="sideBarButton">Show More</button>
-                <hr className="sideBarHr" />
-                <ul className="sideBarFriendList">
+                <hr className="sidebarHr" />
+                <ul className="sidebarFriendList">
                     user
                 </ul>
             </div>
