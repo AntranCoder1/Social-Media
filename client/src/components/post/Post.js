@@ -25,7 +25,7 @@ const Post = () => {
                 <div className="postCenter">
                     <span className="postText">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</span>
                     <img 
-                        src="" 
+                        src="/assets/post/1.jpeg" 
                         className="postImg"
                         alt=""
                     />
