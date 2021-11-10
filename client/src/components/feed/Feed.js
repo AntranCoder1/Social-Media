@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from '../post/Post';
 import Share from '../share/Share';
+import { Posts } from '../../dummyData'; 
 import './Feed.css';
 
 const Feed = () => {
@@ -8,7 +9,9 @@ const Feed = () => {
         <div className="feed">
             <div className="feedWrapper">
                 <Share />
-                <Post />
+                { Posts.map(item => (
+                    <Post key={item.id} post={item} />
+                )) }
             </div>
         </div>
     )
