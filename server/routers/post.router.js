@@ -90,9 +90,9 @@ router.get('/:id', async (req, res) => {
 // @router api/posts/timeline/all
 // @desc GET post
 // @access private
-router.get('/timeline/all', async (req, res) => {
+router.get('/timeline/:userId', async (req, res) => {
     try {
-        const currentUser = await User.findById(req.body.userId);
+        const currentUser = await User.findById(req.params.userId);
         const postUser = await Post.find({ userId: currentUser._id });
         const friendPost = await Promise.all(
             currentUser.followings.map(friendId => {
