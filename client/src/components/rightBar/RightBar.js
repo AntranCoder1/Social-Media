@@ -5,6 +5,8 @@ import './RightBar.css';
 
 const RightBar = ({ profile }) => {
 
+    const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
+
     const HomeRightBar = () => {
         return (
             <>
@@ -48,7 +50,7 @@ const RightBar = ({ profile }) => {
                     <div className="rightBarFollowing">
                         <img 
                             className="rightBarFollowingImg" 
-                            src="assets/person/1.jpeg"
+                            src={`${PF}person/1.jpeg`}
                             alt=""
                         />
                         <span className="rightBarFollowingName">John Carter</span>
@@ -56,7 +58,7 @@ const RightBar = ({ profile }) => {
                     <div className="rightBarFollowing">
                         <img 
                             className="rightBarFollowingImg" 
-                            src="assets/person/2.jpeg"
+                            src={`${PF}person/2.jpeg`}
                             alt=""
                         />
                         <span className="rightBarFollowingName">John Carter</span>
@@ -64,7 +66,7 @@ const RightBar = ({ profile }) => {
                     <div className="rightBarFollowing">
                         <img 
                             className="rightBarFollowingImg" 
-                            src="assets/person/3.jpeg"
+                            src={`${PF}person/3.jpeg`}
                             alt=""
                         />
                         <span className="rightBarFollowingName">John Carter</span>
@@ -72,7 +74,7 @@ const RightBar = ({ profile }) => {
                     <div className="rightBarFollowing">
                         <img 
                             className="rightBarFollowingImg" 
-                            src="assets/person/4.jpeg"
+                            src={`${PF}person/4.jpeg`}
                             alt=""
                         />
                         <span className="rightBarFollowingName">John Carter</span>
