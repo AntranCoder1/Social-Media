@@ -106,4 +106,19 @@ router.get('/timeline/:userId', async (req, res) => {
     }
 })
 
+// @router api/profile/:username
+// @desc GET users all post
+// @access private
+router.get('/profile/:username', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        const posts = await Post.find({ userId: user._id });
+        
+        res.status(200).json({ success: true, message: 'complete', posts });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+})
+
 module.exports = router;
