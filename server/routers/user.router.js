@@ -21,7 +21,7 @@ router.put('/:id', async (req, res) => {
             const user = await User.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
             });
-            res.status(200).json({ success: true, message: 'Account has been updated' });
+            res.status(200).json({ success: true, message: 'Account has been updated', user });
         } catch (error) {
             console.log(error);
             res.status(500).json({ success: false, message: 'Internal server erorr' });
@@ -51,20 +51,19 @@ router.delete('/:id', async (req, res) => {
 // @router api/users/:id
 // @desc GET user
 // @access Private
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
     const userId = req.query.userId;
     const username = req.query.username;
     try {
-        const user = userId 
+        const user = userId
             ? await User.findById(userId)
             : await User.findOne({ username: username });
-        const { password, updatedAt, ...other } = user._doc
-        res.status(200).json({ success: true, message: 'Account has been found',other });
-    } catch (error) {
-        console.log(error);
-        res.status(200).json({ success: false, message: 'Internal server error' });
+        const { password, updatedAt, ...other } = user._doc;
+        res.status(200).json(other);
+    } catch (err) {
+        res.status(500).json(err);
     }
-})
+});
 
 // @router api/users/:id/follow
 // @desc PUT follow

@@ -9,8 +9,8 @@ const User = require('../models/users.models');
 router.post('/', async (req, res) => {
     const newPost = new Post(req.body);
     try {
-        const savaPost = await newPost.save();
-        res.status(200).json({ success: true, message: 'Create post has successfully', savaPost });
+        await newPost.save();
+        res.status(200).json({ success: true, message: 'Create post has successfully' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 // @access Private
 router.put('/:id', async (req, res) => {
     try {
-        const post = await Post.findByIdAndUpdate(req.params.id);
+        const post = await Post.findById(req.params.id);
         if (post.userId === req.body.userId) {
             await post.updateOne({ $set: req.body });
             res.status(200).json({ success: true, message: 'Post has been updated' });
@@ -90,35 +90,32 @@ router.get('/:id', async (req, res) => {
 // @router api/posts/timeline/all
 // @desc GET post
 // @access private
-router.get('/timeline/:userId', async (req, res) => {
+router.get("/timeline/:userId", async (req, res) => {
     try {
         const currentUser = await User.findById(req.params.userId);
-        const postUser = await Post.find({ userId: currentUser._id });
-        const friendPost = await Promise.all(
-            currentUser.followings.map(friendId => {
-                return Post.find({ userId: friendId })
-            })  
+        const userPosts = await Post.find({ userId: currentUser._id });
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId) => {
+                return Post.find({ userId: friendId });
+            })
         );
-        res.status(200).json(postUser.concat(...friendPost));
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        res.status(200).json(userPosts.concat(...friendPosts));
+    } catch (err) {
+        res.status(500).json(err);
     }
-})
+});
 
 // @router api/profile/:username
 // @desc GET users all post
 // @access private
-router.get('/profile/:username', async (req, res) => {
+router.get("/profile/:username", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         const posts = await Post.find({ userId: user._id });
-        
-        res.status(200).json({ success: true, message: 'complete', posts });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
     }
-})
+});
 
 module.exports = router;

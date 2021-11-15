@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
@@ -73,7 +74,9 @@ const Register = () => {
                          />
                         <button className="loginButton" type="submit">Sign Up</button>
                         <button className="loginRegisterButton">
-                            Log into Account
+                            <Link to='/login'>
+                                Log into Account
+                            </Link>
                         </button>
                     </form>
                 </div>

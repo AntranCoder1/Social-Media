@@ -57,7 +57,7 @@ const Login = () => {
                         <span className="loginForgot">Forgot Password?</span>
                         <button className="loginRegisterButton">
                             { isFetching 
-                                ? ( <CircularProgress color="white" size="20px" /> ) 
+                                ? ( <CircularProgress color="secondary" size="20px" /> ) 
                                 : ( "Create a New Account" )
                             }
                         </button>
