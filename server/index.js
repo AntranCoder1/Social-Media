@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const multer = require('multer');
 
 const authRouter = require("./routers/auth.router");
 const userRouter = require("./routers/user.router");
@@ -33,6 +34,24 @@ connectDB();
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "public/images")
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    try {
+        return res.status(200).json('File uploaded successfully.');
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
