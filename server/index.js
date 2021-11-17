@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const multer = require('multer');
+const path = require('path');
 
 const authRouter = require("./routers/auth.router");
 const userRouter = require("./routers/user.router");
@@ -29,6 +30,8 @@ const connectDB = async () => {
 }
 
 connectDB();
+
+app.use('/images', express.static(path.join(__dirname, 'public/images')))
 
 // middleware
 app.use(express.json());
