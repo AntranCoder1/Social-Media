@@ -11,12 +11,10 @@ const RightBar = ({ user }) => {
 
     const PF =  process.env.REACT_APP_PUBLIC_FOLDER;
     const [friend, setFriend] = useState([]);
-    const { user: currentUser } = useContext(AuthContext);
-    const [followed, setFollowed] = useState(false);
-
-    useEffect(() => {
-
-    })
+    const { user: currentUser, dispatch } = useContext(AuthContext);
+    const [followed, setFollowed] = useState(
+        currentUser.followings.includes(user?.id)
+    );
 
     useEffect(() => {
         const getFriends = async () => {
@@ -28,13 +26,22 @@ const RightBar = ({ user }) => {
         getFriends();
     },[user]);
 
-    const handleClick = () => {
+    const handleClick = async () => {
         try {
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
+            if (followed) {
+                await axios.put(`/users/${user._id}/unfollow`, {
+                    userId: currentUser._id,
+                });
+                dispatch({ type: "UNFOLLOW", payload: user._id });
+            } else {
+                await axios.put(`/users/${user._id}/follow`, {
+                    userId: currentUser._id,
+                });
+                dispatch({ type: "FOLLOW", payload: user._id });
+            }
+            setFollowed(!followed);
+        } catch (err) {}
+    };
 
     const HomeRightBar = () => {
         return (
@@ -61,7 +68,8 @@ const RightBar = ({ user }) => {
             <>
                 { user.username !== currentUser.username && (
                     <button className="rightBarFollowButton" onClick={handleClick}>
-                        Follow <Add />
+                        {followed ? "Unfollow" : "Follow"}
+                        {followed ? <Remove /> : <Add />}
                     </button>
                 ) }
                 <h4 className="rightBarTitle">User information</h4>
