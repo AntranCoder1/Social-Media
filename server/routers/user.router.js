@@ -64,6 +64,29 @@ router.get("/", async (req, res) => {
     }
 });
 
+// @router api/users/friends/:userId
+// @desc GET friend
+// @access Private
+router.get('/friends/:userId', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        const friends = await Promise.all(
+            user.followings.map((friendId) => {
+                return User.findById(friendId);
+            })
+        );
+        let friendList = [];
+        friends.map((friend) => {
+            const { _id, username, profifePicture } = friend;
+            friendList.push({ _id, username, profifePicture });
+        });
+        res.status(200).json(friendList);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
 // @router api/users/:id/follow
 // @desc PUT follow
 // @access Private
