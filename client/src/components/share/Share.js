@@ -19,8 +19,20 @@ const Share = () => {
             desc: desc.current.value
         }
 
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append('name', filename);
+            data.append('file', file);
+            newPost.img = filename;
+            try {
+                await axios.post('/upload', data);
+            } catch (error) {}
+        }
+
         try {
             await axios.post('/posts', newPost);
+            window.location.reload();
         } catch (error) {}
     }
 
